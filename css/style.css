@@ -471,7 +471,7 @@ html {
   background-position: center;
 }
 
-.slide:nth-child(3) {
+.slide:nth-child(13) {
   background:
     linear-gradient(135deg,
       rgba(102, 126, 234, 0.3),
@@ -792,6 +792,7 @@ html {
 
   .slideshow-frame {
     border-radius: 20px;
+    height: 60vh;
   }
 
   #home h1 {
