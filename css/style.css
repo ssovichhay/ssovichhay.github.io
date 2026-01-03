@@ -215,6 +215,7 @@ html {
   justify-content: center;
   gap: 20px;
   margin-top: 42px;
+  align-items: center;
 }
 
 .social-icon li a {
@@ -234,6 +235,15 @@ html {
 .social-icon li a:hover {
   background: #ffffff;
   color: #e44c65;
+}
+
+.social-icon .divider {
+  width: 1px;
+  height: 20px;
+  background-color: #ccc;
+  margin: 0 8px;
+  list-style: none;
+  display: flex;
 }
 
 /* Scroll indicator */
@@ -811,5 +821,9 @@ html {
 
   .intro-header {
     font-size: 2rem;
+  }
+
+  .scroll-indicator {
+    display: none;
   }
 }
