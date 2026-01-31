@@ -1,311 +1,320 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+  <meta name="description" content="Sovichhay Seila - Project Leader & Digitalization Enthusiast">
 
   <link rel="icon" type="image/png" href="images/angry-panda.png">
   <title>Sovichhay Seila - Portfolio</title>
 
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/animate.min.css">
-  <link rel="stylesheet" href="css/brands.min.css">
-  <link rel="stylesheet" href="css/solid.min.css">
-  <link rel="stylesheet" href="css/fontawesome.min.css">
-  <link rel="stylesheet" href="css/component.css">
-
-  <link rel="stylesheet" href="css/owl.theme.css">
-  <link rel="stylesheet" href="css/owl.carousel.css">
-  <link rel="stylesheet" href="css/vegas.min.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Google web font  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body id="top">
-  <!-- Intro Animation -->
-  <div class="intro">
-    <h1 class="intro-header">
-      <span class="intro-text"></span><span class="intro-text">Hello</span>&nbsp;<span class="intro-text">World!</span>
-    </h1>
+<body>
+  <!-- SVG Filter for Gooey Lava Effect -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0">
+    <defs>
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 20 -10" result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Lava Lamp Background -->
+  <div class="lava-container" id="lava-container">
+    <div class="lava-blob blob-1"></div>
+    <div class="lava-blob blob-2"></div>
+    <div class="lava-blob blob-3"></div>
+    <div class="lava-blob blob-4"></div>
+    <div class="lava-blob blob-5"></div>
   </div>
 
-  <!-- Preloader -->
-  <div class="preloader">
-    <div class="sk-spinner sk-spinner-pulse"></div>
-  </div>
+  <!-- Custom Cursor Follower -->
+  <div class="cursor-follower" id="cursor-follower"></div>
 
-  <!-- Original Home Section -->
-  <section id="home">
-    <div class="vegas-slideshow">
-      <div class="vegas-slide active"></div>
-      <div class="vegas-slide"></div>
-      <div class="vegas-slide"></div>
-      <div class="vegas-slide"></div>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
     </div>
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10 col-sm-12 wow fadeInUp">
-          <h1 class="wow fadeInUp" data-wow-delay="3.2s">Welcome...</h1>
-          <p class="wow fadeInUp" data-wow-delay="3.7s">Thanks for visiting! My name is <b>Sovichhay</b>. I’m a person
-            of simplicity—hence the simple website. Just
-            kidding… I’m probably just too lazy to make a better one. But the simplicity part is true. Many ordinary
-            things should be done in ordinary ways, yet we’re often the ones who make them complicated. Or maybe this is
-            simply my unconventional way of navigating through problems.</p>
-          <br>
-          <p class="wow fadeInUp" data-wow-delay="3.8s">What about honesty? It feels like a forgotten value these days.
-            Everyone wants honesty, but no one is completely honest. I want to be remembered as someone who is honest. I
-            lead, but I don’t control. I encourage, but I don’t force positivity. People unlock their potential only
-            when they act according to their own will and are honest with themselves.</p>
-          <br>
-          <p class="wow fadeInUp" data-wow-delay="3.9s">Sorry for thinking out
-            loud. Feel free to connect—or just scroll down to learn a little more about me.</p>
+  </div>
 
-          <ul class="social-icon">
-            <li><a href="https://www.linkedin.com/in/ssovichhay/" target="_blank"
-                class="fab fa-linkedin-in wow fadeInUp" data-wow-delay="4.0s"></a></li>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">SS</a>
+      <div class="nav-right">
+        <div class="theme-switch" id="theme-switch" title="Toggle theme">
+          <div class="switch-handle"></div>
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
 
-            <li><a href="https://t.me/ssovichhay" target="_blank" class="fab fa-telegram-plane wow fadeInUp"
-                data-wow-delay="4.5s"></a></li>
-
-            <li><a href="https://www.x.com/ssovichhay" target="_blank" class="fab fa-x-twitter wow fadeInUp"
-                data-wow-delay="5.0s"></a></li>
-
-            <li><a href="https://www.instagram.com/ssovichhay/" target="_blank" class="fab fa-instagram wow fadeInUp"
-                data-wow-delay="5.5s"></a></li>
-            <li class="divider wow fadeInUp" data-wow-delay="5.8s"></li>
-            <li><a href="mailto:sovichhay.seila@outlook.com" target="_blank"
-                class="fa-solid fa-at wow fadeInUp" data-wow-delay="6.0s"></a></li>
-          </ul>
+  <!-- Full-screen Nav Menu -->
+  <div class="nav-menu" id="nav-menu">
+    <div class="nav-menu-inner">
+      <div class="nav-links">
+        <a href="#home" class="nav-link" data-index="01">Home</a>
+        <a href="#about" class="nav-link" data-index="02">About</a>
+        <a href="#experience" class="nav-link" data-index="03">Experience</a>
+        <a href="#portfolio" class="nav-link" data-index="04">Gallery</a>
+        <a href="#contact" class="nav-link" data-index="05">Contact</a>
+      </div>
+      <div class="nav-menu-footer">
+        <div class="nav-social">
+          <a href="https://www.linkedin.com/in/ssovichhay/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://t.me/ssovichhay" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://www.x.com/ssovichhay" target="_blank" rel="noopener">X</a>
+          <a href="https://www.instagram.com/ssovichhay/" target="_blank" rel="noopener">Instagram</a>
+          <a href="mailto:sovichhay.seila@outlook.com">Email</a>
         </div>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <span></span>
-    </div>
-  </section>
+  </div>
 
-  <!-- Portfolio Section -->
-  <section id="portfolio">
-    <div class="portfolio-container">
-      <!-- Left Content Section -->
-      <div class="content-section">
-        <!-- Header -->
-        <div class="header">
-          <h1>Sovichhay Seila</h1>
-          <p class="tagline"><b>Project Leader</b> | Advocate for Transparent Team Environment, Shared Responsibility &
-            Freedom to Innovate</p>
-        </div>
-
-        <!-- Summary Section -->
-        <section class="section">
-          <h2 class="section-title">Summary</h2>
-          <div class="section-content">
-            <p class="summary-text">
-              A young leader and digitalization enthusiast with a humble start and progressively increasing
-              responsibilities. Possesses over half a decade of
-              experience leading application development within SAP ERP and managing project deliveries for an
-              enterprise digital experience platform serving
-              international clients. Seeking to leverage leadership skills to foster a healthy, collaborative, and
-              transparent team environment, with a primary focus on
-              driving efficiency and shared responsibility.
-            </p>
+  <!-- Main Content -->
+  <main>
+    <!-- Home / Hero Section -->
+    <section id="home" class="page-section hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <span class="hero-greeting">Hello world! My name is</span>
+          <span class="hero-name">Sovichhay</span>
+        </h1>
+        <div class="scroll-roles">
+          <div class="scroll-track">
+            <span class="scroll-text">Project Delivery Leader</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Business Analyst</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Tech Enthusiast</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">SAP Specialist</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Enabler for Efficiency and Shared Responsibility</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Project Delivery Leader</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Business Analyst</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Tech Enthusiast</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">SAP Specialist</span>
+            <span class="scroll-bullet">&bull;</span>
+            <span class="scroll-text">Enabler for Efficiency and Shared Responsibility</span>
+            <span class="scroll-bullet">&bull;</span>
           </div>
-        </section>
+        </div>
+        <div class="hero-social">
+          <a href="https://www.linkedin.com/in/ssovichhay/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://t.me/ssovichhay" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 4.4 2.4 10.8c-.6.2-.6 1.1 0 1.3l4.8 1.6 1.6 5.2c.2.5.8.7 1.2.4l2.4-2 4.4 3.2c.5.4 1.2.1 1.3-.5L21.8 5.3c.2-.7-.4-1.2-.6-.9z"/><path d="m7.2 13.7 9.6-7.4"/></svg>
+          </a>
+          <a href="https://www.x.com/ssovichhay" target="_blank" rel="noopener" aria-label="X">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6.8 8.4M20 20l-6.8-8.4m0 0L20 4M10.8 12.4 4 20"/></svg>
+          </a>
+          <a href="https://www.instagram.com/ssovichhay/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="mailto:sovichhay.seila@outlook.com" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+        <div class="hero-cta">
+          <a href="#about" class="btn-primary">Get to know me a little bit more</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span></span>
+      </div>
+    </section>
 
-        <!-- Experience Section -->
-        <section class="section">
-          <h2 class="section-title">Experience</h2>
-          <div class="section-content">
-            <div class="timeline-item">
+    <!-- About Section -->
+    <section id="about" class="page-section">
+      <div class="section-container">
+        <h2 class="section-heading">About</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>Thanks for visiting! I'm a person of simplicity&mdash;hence the simple website. Just kidding&hellip; I'm just too lazy to make a better one. But the simplicity part is true. Many ordinary things should be done in ordinary ways, yet we're often the ones who make them complicated. Or maybe this is simply my unconventional way of navigating through problems.</p>
+            <p>What about honesty? It feels like a forgotten value these days. Everyone wants honesty, but no one is completely honest. I want to be remembered as someone who is honest. I lead, but I don't control. I encourage, but I don't force positivity. People unlock their potential only when they act according to their own will and are honest with themselves.</p>
+            <p>Sorry for thinking out loud. Let me introduce myself professionally...</p>
+          </div>
+          <div class="about-photo">
+            <div class="photo-frame">
+              <img src="images/portfolio/1.jpg" alt="Sovichhay Seila" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="page-section">
+      <div class="section-container">
+        <h2 class="section-heading">Experience</h2>
+        <p class="experience-intro">I see myself as a young leader and tech enthusiast with a humble start and progressively increasing responsibilities. I have nearly 10 years of experience leading application development within SAP ERP and managing project deliveries for an enterprise digital experience platform serving international clients. I seek to leverage leadership skills to foster a healthy, collaborative, and transparent team environment, with a primary focus on driving efficiency and shared responsibility.</p>
+        <div class="experience-list">
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>Project Manager</h3>
-              <p class="meta">Khalibre Co. Ltd | Jan 2023 - Present</p>
-              <p>As a Project Manager, I oversee project execution and team assignments, ensuring that each member is
-                empowered, motivated, and positioned for success. I maintain effective and timely communication with
-                stakeholders, facilitating the right level of involvement across all members of the project team. My
-                responsibilities include project planning, scheduling, and reporting, as well as close collaboration
-                with Business Analysts, UX designers, and Solution Architects to ensure clarity and maturity of
-                requirements, solution design, and business value.</p>
+              <span class="exp-meta">Khalibre Co. Ltd &mdash; Jan 2023 - Present</span>
             </div>
-
-            <div class="timeline-item">
+            <p>As a Project Manager, I oversee project execution and team assignments, ensuring that each member is empowered, motivated, and positioned for success. I maintain effective and timely communication with stakeholders, facilitating the right level of involvement across all members of the project team. My responsibilities include project planning, scheduling, and reporting, as well as close collaboration with Business Analysts, UX designers, and Solution Architects to ensure clarity and maturity of requirements, solution design, and business value.</p>
+          </div>
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>Business Analyst</h3>
-              <p class="meta">Khalibre Co. Ltd | Jan 2024 - Present</p>
-              <p>As a Business Analyst, I capture, define, and manage requirements and documentation based on business
-                priorities, ensuring both quality and relevance. I facilitate clear communication between business and
-                technical participants, assess the impact of business decisions, and ensure that non-functional
-                requirements are fully addressed.
-                I model current and future organizational states to identify opportunities, risks, and impacts, working
-                closely with the Business Visionary and Solution Development Team to shape and communicate solution
-                options. I also contribute to the formulation of the Business Case, support Benefits Assessments, and
-                assist in guiding the solution into live operational use.</p>
+              <span class="exp-meta">Khalibre Co. Ltd &mdash; Jan 2024 - Present</span>
             </div>
-
-            <div class="timeline-item">
+            <p>As a Business Analyst, I capture, define, and manage requirements and documentation based on business priorities, ensuring both quality and relevance. I facilitate clear communication between business and technical participants, assess the impact of business decisions, and ensure that non-functional requirements are fully addressed. I model current and future organizational states to identify opportunities, risks, and impacts, working closely with the Business Visionary and Solution Development Team to shape and communicate solution options. I also contribute to the formulation of the Business Case, support Benefits Assessments, and assist in guiding the solution into live operational use.</p>
+          </div>
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>SAP Application Lead</h3>
-              <p class="meta">Khalibre Co. Ltd | Jan 2019 - Nov 2023</p>
-              <p>As an SAP Application Lead, I oversee application support for SAP Human Capital Management (HCM)
-                solutions. I maintain consistent, timely communication with clients and provide well-grounded
-                consultation on system needs and priorities. My role includes defining priorities, identifying risks,
-                and reporting status and resource needs to both clients and upper management.
-                I ensure that all planning, analysis, and estimation activities are properly documented. I lead the
-                development team by assigning tasks, fostering a healthy and collaborative work environment, encouraging
-                open discussion, and gathering feedback to support continuous improvement.</p>
+              <span class="exp-meta">Khalibre Co. Ltd &mdash; Jan 2019 - Nov 2023</span>
             </div>
-            <div class="timeline-item">
+            <p>As an SAP Application Lead, I oversee application support for SAP Human Capital Management (HCM) solutions. I maintain consistent, timely communication with clients and provide well-grounded consultation on system needs and priorities. My role includes defining priorities, identifying risks, and reporting status and resource needs to both clients and upper management. I ensure that all planning, analysis, and estimation activities are properly documented. I lead the development team by assigning tasks, fostering a healthy and collaborative work environment, encouraging open discussion, and gathering feedback to support continuous improvement.</p>
+          </div>
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>SAP Application Developer & IT Trainee</h3>
-              <p class="meta">Khalibre Co. Ltd | Jul 2017 - Dec 2018</p>
-              <p>As an IT Trainee and later a full time SAP Application Developer, I develop applications using SAP
-                frameworks, primarily ABAP and UI5. I support the system infrastructure team by assisting with system
-                monitoring, refreshes, and support package upgrades. I also troubleshoot client-reported errors to
-                ensure smooth and reliable system performance.</p>
+              <span class="exp-meta">Khalibre Co. Ltd &mdash; Jul 2017 - Dec 2018</span>
             </div>
+            <p>As an IT Trainee and later a full time SAP Application Developer, I develop applications using SAP frameworks, primarily ABAP and UI5. I support the system infrastructure team by assisting with system monitoring, refreshes, and support package upgrades. I also troubleshoot client-reported errors to ensure smooth and reliable system performance.</p>
           </div>
-        </section>
+        </div>
 
-        <!-- Education Section -->
-        <section class="section">
-          <h2 class="section-title">Education</h2>
-          <div class="section-content">
-            <div class="timeline-item">
+        <h2 class="section-heading" style="margin-top: 80px;">Education</h2>
+        <div class="experience-list">
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>B.S in Computer Science & Engineering</h3>
-              <p class="meta">Royal University of Phnom Penh (RUPP) | 2018</p>
+              <span class="exp-meta">Royal University of Phnom Penh (RUPP) &mdash; 2018</span>
             </div>
-
-            <div class="timeline-item">
+          </div>
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>English for Academic Purposes</h3>
-              <p class="meta">Australian Centre for Education | 2016</p>
+              <span class="exp-meta">Australian Centre for Education &mdash; 2016</span>
             </div>
-            <div class="timeline-item">
+          </div>
+          <div class="exp-item">
+            <div class="exp-header">
               <h3>Advanced Diploma in English</h3>
-              <p class="meta">Australian Centre for Education | 2016</p>
-              <p>International Relations & Diplomacy, English for Future Science</p>
+              <span class="exp-meta">Australian Centre for Education &mdash; 2016</span>
             </div>
+            <p>International Relations & Diplomacy, English for Future Science</p>
           </div>
-        </section>
+        </div>
 
-        <!-- Skills Section -->
-        <section class="section">
-          <h2 class="section-title">Skills</h2>
-          <div class="section-content">
-            <div class="skills-grid">
-              <div class="skill-category">
-                <h4>Management & Leadership</h4>
-                <ul>
-                  <li>Innovative Mentorship</li>
-                  <li>Self-Management Enablement</li>
-                  <li>Efficiency-Focused Project Delivery</li>
-                  <li>Team Collaboration</li>
-                </ul>
-              </div>
-
-              <div class="skill-category">
-                <h4>Agile Framework</h4>
-                <ul>
-                  <li>Scrum</li>
-                  <li>Kanban</li>
-                  <li>DSDM</li>
-                </ul>
-              </div>
-
-              <div class="skill-category">
-                <h4>Tools & Technologies</h4>
-                <ul>
-                  <li>Jira / Service / Work Management</li>
-                  <li>Jira Advanced Automation</li>
-                  <li>Confluence</li>
-                  <li>Crowdin (TMS)</li>
-                  <li>SAP HCM (PAOM, PA-ER)</li>
-                  <li>Applied AI for Productivity</li>
-                </ul>
-              </div>
-              <div class="skill-category">
-                <h4>Communication</h4>
-                <ul>
-                  <li>Client Onboarding & Support</li>
-                  <li>Reporting & Analytics</li>
-                </ul>
-
-              </div>
-              <div class="skill-category">
-                <h4>Programming</h4>
-                <ul>
-                  <li>Basic Frontend (HTML, CSS, JavaScript)</li>
-                  <li>API Integration</li>
-                  <li>ABAP</li>
-                  <li>Liferay DXP (JAVA EE)</li>
-                </ul>
-
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Languages Section -->
-        <section class="section">
-          <h2 class="section-title">Languages</h2>
-          <div class="section-content">
-            <div class="languages-list">
-              <div class="language-item">
-                <h4>Khmer</h4>
-                <p>Native</p>
-              </div>
-              <div class="language-item">
-                <h4>English</h4>
-                <p>Professional</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <h2 class="section-heading" style="margin-top: 80px;">Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-tag">Innovative Mentorship</div>
+          <div class="skill-tag">Self-Management Enablement</div>
+          <div class="skill-tag">Efficiency-Focused Project Delivery</div>
+          <div class="skill-tag">Team Collaboration</div>
+          <div class="skill-tag">Scrum</div>
+          <div class="skill-tag">Kanban</div>
+          <div class="skill-tag">DSDM</div>
+          <div class="skill-tag">Jira / Service / Work Management</div>
+          <div class="skill-tag">Confluence</div>
+          <div class="skill-tag">Crowdin (TMS)</div>
+          <div class="skill-tag">SAP HCM</div>
+          <div class="skill-tag">Applied AI for Productivity</div>
+          <div class="skill-tag">Client Onboarding & Support</div>
+          <div class="skill-tag">Reporting & Analytics</div>
+          <div class="skill-tag">HTML / CSS / JavaScript</div>
+          <div class="skill-tag">API Integration</div>
+          <div class="skill-tag">ABAP</div>
+          <div class="skill-tag">Liferay DXP</div>
+        </div>
       </div>
+    </section>
 
-      <!-- Right Slideshow Section -->
-      <div class="slideshow-section">
-        <div class="slideshow-frame">
-          <div class="slideshow">
-            <div class="slide active"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="page-section">
+      <div class="section-container">
+        <h2 class="section-heading">Some moments in my life...</h2>
+        <div class="portfolio-grid">
+          <div class="portfolio-item"><img src="images/portfolio/1.jpg" alt="Portfolio 1" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/2.jpg" alt="Portfolio 2" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/3.jpg" alt="Portfolio 3" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/4.jpg" alt="Portfolio 4" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/5.jpg" alt="Portfolio 5" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/6.jpg" alt="Portfolio 6" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/7.jpg" alt="Portfolio 7" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/8.jpg" alt="Portfolio 8" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/9.jpg" alt="Portfolio 9" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/10.jpg" alt="Portfolio 10" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/11.jpg" alt="Portfolio 11" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/12.jpg" alt="Portfolio 12" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/13.jpg" alt="Portfolio 13" loading="lazy"></div>
+          <div class="portfolio-item"><img src="images/portfolio/14.jpg" alt="Portfolio 14" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page-section">
+      <div class="section-container">
+        <h2 class="section-heading">Get in Touch</h2>
+        <div class="contact-content">
+          <p class="text-large">Feel free to connect or just say hello.</p>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/ssovichhay/" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-label">LinkedIn</span>
+              <span class="contact-arrow">&rarr;</span>
+            </a>
+            <a href="https://t.me/ssovichhay" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-label">Telegram</span>
+              <span class="contact-arrow">&rarr;</span>
+            </a>
+            <a href="https://www.x.com/ssovichhay" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-label">X (Twitter)</span>
+              <span class="contact-arrow">&rarr;</span>
+            </a>
+            <a href="https://www.instagram.com/ssovichhay/" target="_blank" rel="noopener" class="contact-link">
+              <span class="contact-label">Instagram</span>
+              <span class="contact-arrow">&rarr;</span>
+            </a>
+            <a href="mailto:sovichhay.seila@outlook.com" class="contact-link">
+              <span class="contact-label">sovichhay.seila@outlook.com</span>
+              <span class="contact-arrow">&rarr;</span>
+            </a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Back to Top Button -->
-  <a href="#top" class="go-top"><i class="fas fa-angle-up"></i></a>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Sovichhay Seila</p>
+  </footer>
 
-  <!-- Javascript  -->
-  <script src="js/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/vegas.min.js"></script>
-  <script src="js/modernizr.custom.js"></script>
-  <script src="js/toucheffects.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/smoothscroll.js"></script>
-  <script src="js/wow.min.js"></script>
-  <script src="js/custom.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
