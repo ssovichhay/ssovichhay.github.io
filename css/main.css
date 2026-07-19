@@ -112,22 +112,160 @@ img {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transition: opacity 1s ease 0.25s, visibility 1s ease 0.25s;
 }
 
-.progress-bar {
-  width: 200px;
-  height: 3px;
-  background: var(--card-border);
-  border-radius: 3px;
-  overflow: hidden;
+.loader-blobs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80vmin;
+  height: 80vmin;
+  transform: translate(-50%, -50%);
+  filter: url(#gooey);
+  pointer-events: none;
 }
 
-.progress-fill {
-  width: 0%;
-  height: 100%;
-  background: var(--accent);
-  border-radius: 3px;
-  transition: width 0.3s ease;
+.loader-blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  opacity: 0.75;
+}
+
+.lb-1 {
+  width: clamp(56px, 16vw, 80px);
+  height: clamp(56px, 16vw, 80px);
+  margin: clamp(-40px, -8vw, -28px);
+  background: var(--blob-1);
+  animation: loader-merge-1 2.6s ease-in-out infinite;
+}
+
+.lb-2 {
+  width: clamp(44px, 13vw, 64px);
+  height: clamp(44px, 13vw, 64px);
+  margin: clamp(-32px, -6.5vw, -22px);
+  background: var(--blob-2);
+  animation: loader-merge-2 2.6s ease-in-out infinite;
+}
+
+.lb-3 {
+  width: clamp(36px, 10vw, 50px);
+  height: clamp(36px, 10vw, 50px);
+  margin: clamp(-25px, -5vw, -18px);
+  background: var(--blob-3);
+  animation: loader-merge-3 2.6s ease-in-out infinite;
+}
+
+@keyframes loader-merge-1 {
+  0%, 100% { transform: translate(-11vmin, 2vmin) scale(0.9); }
+  50% { transform: translate(0, 0) scale(1.15); }
+}
+
+@keyframes loader-merge-2 {
+  0%, 100% { transform: translate(11vmin, 3vmin) scale(0.9); }
+  50% { transform: translate(0, 0) scale(1.1); }
+}
+
+@keyframes loader-merge-3 {
+  0%, 100% { transform: translate(1vmin, -10vmin) scale(0.85); }
+  50% { transform: translate(0, 0) scale(1); }
+}
+
+.loader-text {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(1.4rem, 5vw, 2.4rem);
+  font-weight: 200;
+  color: var(--text);
+  opacity: 0;
+  filter: blur(18px);
+  letter-spacing: 0.45em;
+  text-indent: 0.45em;
+  animation: loader-focus-in 1.4s cubic-bezier(0.2, 0.6, 0.2, 1) 0.25s forwards;
+}
+
+@keyframes loader-focus-in {
+  0% {
+    opacity: 0;
+    filter: blur(18px);
+    letter-spacing: 0.45em;
+    text-indent: 0.45em;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    letter-spacing: 0.08em;
+    text-indent: 0.08em;
+  }
+}
+
+/* Exit: blobs melt outward into the lava background, text defocuses */
+.loading-screen.exiting .loader-blob {
+  animation: none;
+  transition: transform 1.2s cubic-bezier(0.55, 0, 0.25, 1), opacity 1.2s ease;
+}
+
+.loading-screen.exiting .lb-1 {
+  transform: translate(-32vw, -24vh) scale(3.6);
+}
+
+.loading-screen.exiting .lb-2 {
+  transform: translate(30vw, 14vh) scale(3.2);
+}
+
+.loading-screen.exiting .lb-3 {
+  transform: translate(-12vw, 26vh) scale(3);
+}
+
+.loading-screen.exiting .loader-text {
+  animation: none;
+  transition: opacity 0.6s ease, filter 0.6s ease, letter-spacing 0.6s ease;
+  opacity: 0;
+  filter: blur(14px);
+  letter-spacing: 0.35em;
+}
+
+/* Staggered hero reveal after the loader melts away */
+body.is-loading .hero-content > *,
+body.is-loading .scroll-indicator {
+  opacity: 0;
+}
+
+body.site-revealed .hero-content > *,
+body.site-revealed .scroll-indicator {
+  opacity: 0;
+  animation: blur-in 0.9s ease forwards;
+}
+
+body.site-revealed .hero-content > :nth-child(1) { animation-delay: 0.35s; }
+body.site-revealed .hero-content > :nth-child(2) { animation-delay: 0.5s; }
+body.site-revealed .hero-content > :nth-child(3) { animation-delay: 0.65s; }
+body.site-revealed .hero-content > :nth-child(4) { animation-delay: 0.8s; }
+body.site-revealed .scroll-indicator { animation-delay: 1s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-blob,
+  .loader-text {
+    animation: none;
+  }
+
+  .loader-text {
+    opacity: 1;
+    filter: none;
+    letter-spacing: 0.08em;
+  }
+
+  .loading-screen.exiting .loader-blob {
+    transition: none;
+  }
+
+  body.site-revealed .hero-content > *,
+  body.site-revealed .scroll-indicator {
+    animation-duration: 0.01s;
+    animation-delay: 0s;
+  }
 }
 
 /* --- Lava Lamp Background --- */
@@ -492,10 +630,6 @@ img {
   justify-content: center;
   text-align: center;
   flex-direction: column;
-}
-
-.hero-content {
-  animation: blur-in 0.8s ease forwards;
 }
 
 .hero-title {

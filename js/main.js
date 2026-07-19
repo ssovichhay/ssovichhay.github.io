@@ -4,29 +4,28 @@
 
   // --- Loading Screen ---
   const loadingScreen = document.getElementById('loading-screen');
-  const progressFill = document.getElementById('progress-fill');
-  let progress = 0;
+  const MIN_LOADER_TIME = 2200; // keep the intro on screen long enough to breathe
+  const loaderStart = performance.now();
+  let revealed = false;
 
-  const loadingInterval = setInterval(() => {
-    progress += Math.random() * 30;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(loadingInterval);
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-      }, 400);
-    }
-    progressFill.style.width = progress + '%';
-  }, 200);
+  document.body.classList.add('is-loading');
+
+  function revealSite() {
+    if (revealed) return;
+    revealed = true;
+    loadingScreen.classList.add('exiting');
+    loadingScreen.classList.add('hidden');
+    document.body.classList.remove('is-loading');
+    document.body.classList.add('site-revealed');
+  }
 
   window.addEventListener('load', () => {
-    progress = 100;
-    progressFill.style.width = '100%';
-    clearInterval(loadingInterval);
-    setTimeout(() => {
-      loadingScreen.classList.add('hidden');
-    }, 600);
+    const elapsed = performance.now() - loaderStart;
+    setTimeout(revealSite, Math.max(0, MIN_LOADER_TIME - elapsed));
   });
+
+  // Fallback in case the load event stalls (e.g. a hanging image request)
+  setTimeout(revealSite, 7000);
 
   // --- Custom Cursor Follower ---
   const cursor = document.getElementById('cursor-follower');
