@@ -17,6 +17,13 @@
 </head>
 
 <body>
+  <script>document.body.classList.add('is-loading');</script>
+  <noscript>
+    <style>
+      body.is-loading #navbar, body.is-loading main, body.is-loading .site-footer { opacity: 1 !important; }
+      .loader-text { display: none !important; }
+    </style>
+  </noscript>
   <!-- SVG Filter for Gooey Lava Effect -->
   <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0">
     <defs>
@@ -44,15 +51,8 @@
   <!-- Custom Cursor Follower -->
   <div class="cursor-follower" id="cursor-follower"></div>
 
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loading-screen">
-    <div class="loader-blobs">
-      <span class="loader-blob lb-1"></span>
-      <span class="loader-blob lb-2"></span>
-      <span class="loader-blob lb-3"></span>
-    </div>
-    <span class="loader-text">Hello world</span>
-  </div>
+  <!-- Loading Intro (blobs come from the lava background itself) -->
+  <span class="loader-text">Hello world</span>
 
   <!-- Navigation -->
   <nav id="navbar">
