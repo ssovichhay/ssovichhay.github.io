@@ -2,21 +2,24 @@
 (function () {
   'use strict';
 
-  // --- Loading Screen ---
-  const loadingScreen = document.getElementById('loading-screen');
-  const MIN_LOADER_TIME = 2200; // keep the intro on screen long enough to breathe
+  // --- Loading Intro ---
+  const MIN_LOADER_TIME = 1900; // keep the intro on screen long enough to breathe
+  const BLOB_RETURN_TIME = 1600; // slightly longer than the blobs-return transition in CSS
   const loaderStart = performance.now();
   let revealed = false;
+  let blobsLive = false;
 
   document.body.classList.add('is-loading');
 
   function revealSite() {
     if (revealed) return;
     revealed = true;
-    loadingScreen.classList.add('exiting');
-    loadingScreen.classList.add('hidden');
     document.body.classList.remove('is-loading');
-    document.body.classList.add('site-revealed');
+    document.body.classList.add('site-revealed', 'blobs-return');
+    setTimeout(() => {
+      document.body.classList.remove('blobs-return');
+      blobsLive = true;
+    }, BLOB_RETURN_TIME);
   }
 
   window.addEventListener('load', () => {
@@ -62,6 +65,7 @@
   const blobs = document.querySelectorAll('.lava-blob');
 
   document.addEventListener('mousemove', (e) => {
+    if (!blobsLive) return;
     const x = e.clientX;
     const y = e.clientY;
     const centerX = window.innerWidth / 2;
