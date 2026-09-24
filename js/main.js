@@ -4,7 +4,8 @@
 
   // --- Loading Intro ---
   const MIN_LOADER_TIME = 1900; // keep the intro on screen long enough to breathe
-  const BLOB_RETURN_TIME = 1600; // slightly longer than the blobs-return transition in CSS
+  const BLOB_RETURN_MS = 1500;
+  const BLOB_RETURN_STAGGER_MS = 70;
   const loaderStart = performance.now();
   let revealed = false;
   let blobsLive = false;
@@ -14,12 +15,32 @@
   function revealSite() {
     if (revealed) return;
     revealed = true;
+
+    // Browsers won't start a CSS transition from a running animation's current
+    // value, so capture each blob's pose in the cluster and animate it home.
+    const lavaBlobs = Array.from(document.querySelectorAll('.lava-blob'));
+    const gathered = lavaBlobs.map(blob => getComputedStyle(blob).transform);
+
     document.body.classList.remove('is-loading');
     document.body.classList.add('site-revealed', 'blobs-return');
-    setTimeout(() => {
+    startReveals();
+
+    const glides = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? [] :
+      lavaBlobs.map((blob, i) => blob.animate(
+        [{ transform: gathered[i] }, { transform: 'translate(0, 0) scale(1)' }],
+        {
+          duration: BLOB_RETURN_MS,
+          delay: i * BLOB_RETURN_STAGGER_MS,
+          easing: 'cubic-bezier(0.45, 0, 0.2, 1)',
+          fill: 'backwards'
+        }
+      ).finished);
+
+    // The float animations start from translate(0, 0) scale(1), exactly where the glide ends
+    Promise.all(glides).catch(() => {}).then(() => {
       document.body.classList.remove('blobs-return');
       blobsLive = true;
-    }, BLOB_RETURN_TIME);
+    });
   }
 
   window.addEventListener('load', () => {
@@ -115,25 +136,68 @@
     });
   });
 
-  // --- Scroll Animations (Intersection Observer) ---
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -60px 0px'
-  };
+  // --- Scroll Reveals ---
+  function splitWords(heading) {
+    const text = heading.textContent.trim();
+    heading.setAttribute('aria-label', text);
+    heading.textContent = '';
+    text.split(/\s+/).forEach((word, i) => {
+      const outer = document.createElement('span');
+      outer.className = 'word';
+      outer.setAttribute('aria-hidden', 'true');
+      const inner = document.createElement('span');
+      inner.className = 'word-inner';
+      inner.style.setProperty('--i', i);
+      inner.textContent = word;
+      outer.appendChild(inner);
+      heading.append(outer, ' ');
+    });
+  }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+  function tag(selector, type, staggerBy) {
+    document.querySelectorAll(selector).forEach(el => {
+      el.dataset.reveal = type;
+      if (staggerBy === 'sibling') {
+        el.style.setProperty('--i', Array.prototype.indexOf.call(el.parentElement.children, el));
       }
     });
-  }, observerOptions);
+  }
 
-  // Observe experience items, portfolio items
-  document.querySelectorAll('.exp-item, .portfolio-item').forEach((el, i) => {
-    el.style.transitionDelay = (i % 6) * 0.08 + 's';
-    observer.observe(el);
-  });
+  let revealObserver = null;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    document.querySelectorAll('.section-heading').forEach(splitWords);
+    tag('.section-heading', 'words');
+    tag('.about-text p', 'text', 'sibling');
+    tag('.experience-intro, .contact-content .text-large', 'text');
+    tag('.photo-frame, .portfolio-item', 'image');
+    tag('.exp-item', 'card');
+    tag('.skills-grid, .contact-links', 'stagger');
+    document.querySelectorAll('.skills-grid > *, .contact-links > *').forEach(el => {
+      el.style.setProperty('--i', Array.prototype.indexOf.call(el.parentElement.children, el));
+    });
+    document.documentElement.classList.add('reveal-ready');
+
+    revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        // Photos in the same grid row enter together; stagger them left to right
+        if (el.classList.contains('portfolio-item')) {
+          el.style.setProperty('--i', Math.round(el.offsetLeft / (el.offsetWidth || 1)));
+        }
+        el.classList.add('in-view');
+        revealObserver.unobserve(el);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+  }
+
+  // Called once the loading intro has cleared, so nothing animates behind it
+  function startReveals() {
+    if (!revealObserver) return;
+    document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+  }
 
   // --- Smooth Scroll for anchor links ---
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
