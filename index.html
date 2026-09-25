@@ -48,6 +48,15 @@
     <div class="lava-blob blob-5"></div>
   </div>
 
+  <!-- Blob Labels: each opens its section as a story panel (data-blob picks the blob) -->
+  <nav class="blob-labels" aria-label="Sections">
+    <a href="#about" class="blob-label" data-blob="1">About</a>
+    <a href="#experience" class="blob-label" data-blob="2">Experience</a>
+    <a href="#skills" class="blob-label" data-blob="3">Skills</a>
+    <a href="#portfolio" class="blob-label" data-blob="5">Gallery</a>
+    <a href="#contact" class="blob-label" data-blob="4">Contact</a>
+  </nav>
+
   <!-- Custom Cursor Follower -->
   <div class="cursor-follower" id="cursor-follower"></div>
 
@@ -78,8 +87,9 @@
         <a href="#home" class="nav-link" data-index="01">Home</a>
         <a href="#about" class="nav-link" data-index="02">About</a>
         <a href="#experience" class="nav-link" data-index="03">Experience</a>
-        <a href="#portfolio" class="nav-link" data-index="04">Gallery</a>
-        <a href="#contact" class="nav-link" data-index="05">Contact</a>
+        <a href="#skills" class="nav-link" data-index="04">Skills</a>
+        <a href="#portfolio" class="nav-link" data-index="05">Gallery</a>
+        <a href="#contact" class="nav-link" data-index="06">Contact</a>
       </div>
       <div class="nav-menu-footer">
         <div class="nav-social">
@@ -161,6 +171,8 @@
             <p>Thanks for visiting! I'm a person of simplicity&mdash;hence the simple website. Just kidding&hellip; I'm just too lazy to make a better one. But the simplicity part is true. Many ordinary things should be done in ordinary ways, yet we're often the ones who make them complicated. Or maybe this is simply my unconventional way of navigating through problems.</p>
             <p>What about honesty? It feels like a forgotten value these days. Everyone wants honesty, but no one is completely honest. I want to be remembered as someone who is honest. I lead, but I don't control. I encourage, but I don't force positivity. People unlock their potential only when they act according to their own will and are honest with themselves.</p>
             <p>Sorry for thinking out loud. Let me introduce myself professionally...</p>
+            <p>I see myself as a young leader and tech enthusiast with a humble start and progressively increasing responsibilities. I have nearly 10 years of experience leading application development within SAP ERP and managing project deliveries for an enterprise digital experience platform serving international clients. I seek to leverage leadership skills to foster a healthy, collaborative, and transparent team environment, with a primary focus on driving efficiency and shared responsibility.</p>
+            <p class="about-next"><a href="#experience" class="btn-primary">See my experience</a></p>
           </div>
           <div class="about-photo">
             <div class="photo-frame">
@@ -175,7 +187,6 @@
     <section id="experience" class="page-section">
       <div class="section-container">
         <h2 class="section-heading">Experience</h2>
-        <p class="experience-intro">I see myself as a young leader and tech enthusiast with a humble start and progressively increasing responsibilities. I have nearly 10 years of experience leading application development within SAP ERP and managing project deliveries for an enterprise digital experience platform serving international clients. I seek to leverage leadership skills to foster a healthy, collaborative, and transparent team environment, with a primary focus on driving efficiency and shared responsibility.</p>
         <div class="experience-list">
           <div class="exp-item">
             <div class="exp-header">
@@ -229,8 +240,13 @@
             <p>International Relations & Diplomacy, English for Future Science</p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <h2 class="section-heading" style="margin-top: 80px;">Skills</h2>
+    <!-- Skills Section -->
+    <section id="skills" class="page-section">
+      <div class="section-container">
+        <h2 class="section-heading">Skills</h2>
         <div class="skills-grid">
           <div class="skill-tag">Innovative Mentorship</div>
           <div class="skill-tag">Self-Management Enablement</div>
@@ -262,7 +278,6 @@
           <div class="portfolio-item"><img src="images/portfolio/1.jpg" alt="Portfolio 1" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/2.jpg" alt="Portfolio 2" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/3.jpg" alt="Portfolio 3" loading="lazy"></div>
-          <div class="portfolio-item"><img src="images/portfolio/4.jpg" alt="Portfolio 4" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/5.jpg" alt="Portfolio 5" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/6.jpg" alt="Portfolio 6" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/7.jpg" alt="Portfolio 7" loading="lazy"></div>
@@ -272,7 +287,6 @@
           <div class="portfolio-item"><img src="images/portfolio/11.jpg" alt="Portfolio 11" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/12.jpg" alt="Portfolio 12" loading="lazy"></div>
           <div class="portfolio-item"><img src="images/portfolio/13.jpg" alt="Portfolio 13" loading="lazy"></div>
-          <div class="portfolio-item"><img src="images/portfolio/14.jpg" alt="Portfolio 14" loading="lazy"></div>
         </div>
       </div>
     </section>

@@ -119,10 +119,10 @@ body.is-loading .blob-5 { animation-delay: -0.4s; }
    so the pull-to-center works at any viewport size. */
 @keyframes loader-gather {
   0%, 100% {
-    transform: translate(calc(50vw - var(--home-x) + var(--g-ox)), calc(50vh - var(--home-y) + var(--g-oy))) scale(calc(var(--g-s) * 0.9));
+    transform: translate(calc(50vw - var(--home-x) + var(--g-ox)), calc(50svh - var(--home-y) + var(--g-oy))) scale(calc(var(--g-s) * 0.9));
   }
   50% {
-    transform: translate(calc(50vw - var(--home-x)), calc(50vh - var(--home-y))) scale(calc(var(--g-s) * 1.22));
+    transform: translate(calc(50vw - var(--home-x)), calc(50svh - var(--home-y))) scale(calc(var(--g-s) * 1.22));
   }
 }
 
@@ -239,22 +239,33 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
   filter: url(#gooey);
 }
 
+/* Each blob is placed by its center (--cx, --cy) and --size, which the
+   breakpoints override. The loader and blob labels measure from the same point. */
 .lava-blob {
   position: absolute;
+  width: var(--size);
+  height: var(--size);
+  left: calc(var(--cx) - var(--size) / 2);
+  top: calc(var(--cy) - var(--size) / 2);
+  --home-x: var(--cx);
+  --home-y: var(--cy);
   border-radius: 50%;
   opacity: 0.6;
   will-change: transform;
-  transition: background var(--transition-theme);
+  transition: background var(--transition-theme), scale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A blob whose label is hovered holds still and swells, so it's easy to hit */
+.lava-blob.is-hovered {
+  animation-play-state: paused;
+  scale: 1.12;
 }
 
 .blob-1 {
-  width: 260px;
-  height: 260px;
+  --size: 260px;
+  --cx: 15vw;
+  --cy: 30svh;
   background: var(--blob-1);
-  top: 20%;
-  left: 10%;
-  --home-x: calc(10vw + 130px);
-  --home-y: calc(20vh + 130px);
   --g-ox: -12vmin;
   --g-oy: 1vmin;
   --g-s: 0.34;
@@ -262,13 +273,10 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
 }
 
 .blob-2 {
-  width: 200px;
-  height: 200px;
+  --size: 200px;
+  --cx: 85vw;
+  --cy: 26svh;
   background: var(--blob-2);
-  top: 60%;
-  right: 15%;
-  --home-x: calc(85vw - 100px);
-  --home-y: calc(60vh + 100px);
   --g-ox: 12vmin;
   --g-oy: 3vmin;
   --g-s: 0.4;
@@ -276,13 +284,10 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
 }
 
 .blob-3 {
-  width: 180px;
-  height: 180px;
+  --size: 180px;
+  --cx: 20vw;
+  --cy: 76svh;
   background: var(--blob-3);
-  bottom: 20%;
-  left: 30%;
-  --home-x: calc(30vw + 90px);
-  --home-y: calc(80vh - 90px);
   --g-ox: 0vmin;
   --g-oy: -11vmin;
   --g-s: 0.42;
@@ -290,13 +295,10 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
 }
 
 .blob-4 {
-  width: 140px;
-  height: 140px;
+  --size: 140px;
+  --cx: 81vw;
+  --cy: 72svh;
   background: var(--blob-4);
-  top: 40%;
-  right: 30%;
-  --home-x: calc(70vw - 70px);
-  --home-y: calc(40vh + 70px);
   --g-ox: 8vmin;
   --g-oy: 9vmin;
   --g-s: 0.5;
@@ -304,13 +306,10 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
 }
 
 .blob-5 {
-  width: 100px;
-  height: 100px;
+  --size: 100px;
+  --cx: 50vw;
+  --cy: 88svh;
   background: var(--blob-5);
-  top: 70%;
-  left: 60%;
-  --home-x: calc(60vw + 50px);
-  --home-y: calc(70vh + 50px);
   --g-ox: -8vmin;
   --g-oy: 8vmin;
   --g-s: 0.55;
@@ -543,6 +542,7 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
 .nav-menu.open .nav-link:nth-child(3) { transition-delay: 0.2s; }
 .nav-menu.open .nav-link:nth-child(4) { transition-delay: 0.25s; }
 .nav-menu.open .nav-link:nth-child(5) { transition-delay: 0.3s; }
+.nav-menu.open .nav-link:nth-child(6) { transition-delay: 0.35s; }
 
 .nav-link::before {
   content: attr(data-index);
@@ -808,6 +808,10 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
   font-size: 1rem !important;
 }
 
+.about-next {
+  margin-top: 12px;
+}
+
 .photo-frame {
   border-radius: 24px;
   overflow: hidden;
@@ -822,14 +826,6 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
 }
 
 /* --- Experience Section --- */
-.experience-intro {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: var(--text-muted);
-  margin-bottom: 40px;
-  max-width: 800px;
-}
-
 .experience-list {
   display: flex;
   flex-direction: column;
@@ -1108,6 +1104,167 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
   from { opacity: 0; transform: translateX(-60px); }
 }
 
+/* --- Blob Labels & Story Panels --- */
+/* Only active once JS adds .panels-ready; without it the sections stay a
+   normal scrolling page. */
+[data-theme="light"] {
+  --label-bg: rgba(255, 251, 238, 0.55);
+  --label-glow: rgba(255, 251, 238, 0.5);
+}
+[data-theme="dark"] {
+  --label-bg: rgba(25, 25, 25, 0.4);
+  --label-glow: rgba(25, 25, 25, 0.45);
+}
+
+.blob-labels {
+  display: none;
+}
+
+.panels-ready .blob-labels {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.panels-ready .scroll-indicator {
+  display: none;
+}
+
+.panels-ready .hero-section {
+  min-height: 100svh;
+}
+
+/* JS moves each label to its blob's center every frame. The padding is an
+   invisible hit area; the text itself sits on the blob with no chip. */
+.blob-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  padding: 14px 18px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-shadow: 0 1px 12px var(--label-glow);
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.8s ease calc(var(--i, 0) * 110ms), letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.labels-live .blob-label {
+  opacity: 0.78;
+  pointer-events: auto;
+}
+
+.labels-live .blob-label:hover,
+.labels-live .blob-label:focus-visible {
+  opacity: 1;
+  letter-spacing: 0.16em;
+  transition: opacity 0.3s ease, letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blob-label:hover {
+  color: var(--text);
+}
+
+.blob-label:focus-visible {
+  outline: 1.5px solid var(--text);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+dialog.panel {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  overflow: hidden;
+}
+
+dialog.panel::backdrop {
+  background: transparent;
+}
+
+.panel-wash,
+.panel-surface,
+.panel-scroll {
+  position: absolute;
+  inset: 0;
+}
+
+/* The wash takes the opening blob's color; the surface follows it as a
+   second wave, so a ring of color sweeps across the screen. */
+.panel-wash {
+  background: var(--panel-wash, var(--accent));
+}
+
+.panel-surface {
+  background: var(--bg);
+  transition: background var(--transition-theme);
+}
+
+.panel-scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.panel.content-in .panel-scroll {
+  opacity: 1;
+}
+
+.panel .about-photo {
+  top: 40px;
+}
+
+.panel-close {
+  position: absolute;
+  top: 24px;
+  right: 5%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  background: var(--label-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--text);
+  cursor: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, border-color 0.3s ease;
+}
+
+.panel.content-in .panel-close {
+  opacity: 1;
+}
+
+.panel-close:hover,
+.panel-close:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(90deg);
+}
+
+.panel-close:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
 /* --- Animations --- */
 @keyframes blur-in {
   0% {
@@ -1281,51 +1438,36 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
     line-height: 1.7;
   }
 
-  .lava-blob {
-    opacity: 0.6;
-    right: auto;
-    bottom: auto;
-  }
-
   .blob-1 {
-    width: 160px; height: 160px;
-    top: 15%; left: 5%;
-    --home-x: calc(5vw + 80px);
-    --home-y: calc(15vh + 80px);
-    --g-s: 0.55;
+    --size: 150px; --cx: 22vw; --cy: 17svh; --g-s: 0.55;
     animation: blob-breathe 8s ease-in-out infinite, blob-float-mobile-1 18s ease-in-out infinite;
   }
   .blob-2 {
-    width: 120px; height: 120px;
-    top: 55%; left: 70%;
-    --home-x: calc(70vw + 60px);
-    --home-y: calc(55vh + 60px);
-    --g-s: 0.6;
+    --size: 125px; --cx: 76vw; --cy: 21svh; --g-s: 0.6;
     animation: blob-breathe 8s ease-in-out infinite 1s, blob-float-mobile-2 16s ease-in-out infinite;
   }
   .blob-3 {
-    width: 100px; height: 100px;
-    top: 65%; left: 20%;
-    --home-x: calc(20vw + 50px);
-    --home-y: calc(65vh + 50px);
-    --g-s: 0.65;
+    --size: 115px; --cx: 20vw; --cy: 80svh; --g-s: 0.65;
     animation: blob-breathe 8s ease-in-out infinite 2s, blob-float-mobile-3 20s ease-in-out infinite;
   }
   .blob-4 {
-    width: 80px; height: 80px;
-    top: 35%; left: 55%;
-    --home-x: calc(55vw + 40px);
-    --home-y: calc(35vh + 40px);
-    --g-s: 0.7;
+    --size: 100px; --cx: 80vw; --cy: 79svh; --g-s: 0.7;
     animation: blob-breathe 8s ease-in-out infinite 3s, blob-float-mobile-4 14s ease-in-out infinite;
   }
   .blob-5 {
-    width: 60px; height: 60px;
-    top: 75%; left: 40%;
-    --home-x: calc(40vw + 30px);
-    --home-y: calc(75vh + 30px);
-    --g-s: 0.75;
+    --size: 90px; --cx: 50vw; --cy: 89svh; --g-s: 0.75;
     animation: blob-breathe 8s ease-in-out infinite 4s, blob-float-mobile-5 12s ease-in-out infinite;
+  }
+
+  .blob-label {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+
+  .panel-close {
+    top: 16px;
+    width: 44px;
+    height: 44px;
   }
 
   .nav-menu-inner {
@@ -1466,9 +1608,9 @@ body.site-revealed .scroll-indicator { animation-delay: 0.8s; }
     transform: translateX(22px);
   }
 
-  .blob-1 { width: 120px; height: 120px; top: 10%; left: 2%; }
-  .blob-2 { width: 90px; height: 90px; top: 50%; left: 75%; }
-  .blob-3 { width: 80px; height: 80px; top: 70%; left: 15%; }
-  .blob-4 { width: 60px; height: 60px; top: 30%; left: 65%; }
-  .blob-5 { width: 45px; height: 45px; top: 75%; left: 45%; }
+  .blob-1 { --size: 130px; }
+  .blob-2 { --size: 110px; }
+  .blob-3 { --size: 100px; }
+  .blob-4 { --size: 92px; }
+  .blob-5 { --size: 84px; }
 }
