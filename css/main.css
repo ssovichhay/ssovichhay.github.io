@@ -1322,7 +1322,10 @@ dialog.panel::backdrop {
     gap: 40px;
   }
 
-  .about-photo {
+  /* Single column: the photo sits above the text, so it must scroll away with it */
+  .about-photo,
+  .panel .about-photo {
+    position: static;
     order: -1;
     max-width: 400px;
   }
